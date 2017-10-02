@@ -13,7 +13,7 @@ class Beers extends React.Component {
   axios.get('/api/all_beers')
     .then( res => {
       let { data } = res;
-      this.setState({ beers: data })
+      this.setState({ beers: data.entries })
     });
 }
 
@@ -21,16 +21,20 @@ class Beers extends React.Component {
   render() {
     const { beers } = this.state;
     return(
+      <div>
         <Container>
           <List>
-            <List.Item >
+            { beers.map( b =>
+            <List.Item>
               <List.Content>
-                <List.Header></List.Header>
-                <List.Description></List.Description>
+                <List.Header>{b.name}</List.Header>
+                <List.Description>{b.description}</List.Description>
               </List.Content>
             </List.Item>
+          )}
           </List>
         </Container>
+      </div>
     )
   }
 }
